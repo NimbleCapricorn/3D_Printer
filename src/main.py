@@ -29,8 +29,8 @@ async def create_upload_files(
     
     for f in files:
         with open(f"{gcode_files_path}{f.filename}", 'wb') as out_file:
-            content = f.read()  # async read
-            out_file.write(content)  # async write
+            content = f.file.read()
+            out_file.write(content)
     
     return "/print"
 

@@ -4,6 +4,8 @@ from fastapi.staticfiles import StaticFiles
 from starlette.responses import FileResponse
 from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
+templates = Jinja2Templates(directory="templates")
 
 app = FastAPI()
 

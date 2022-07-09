@@ -1,13 +1,11 @@
 from typing import Union
 
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
+
 
 app = FastAPI()
-
-
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
+app.mount("/", StaticFiles(directory="static"), name="static")
 
 
 @app.get("/items/{item_id}")

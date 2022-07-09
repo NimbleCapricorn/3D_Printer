@@ -6,26 +6,37 @@ from typing import Union
 from fastapi.staticfiles import StaticFiles
 from starlette.responses import FileResponse
 from fastapi import FastAPI, File, UploadFile, Request
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
+
+app = FastAPI()
 
 templates = Jinja2Templates(directory="static")
 
 app = FastAPI()
 
+gcode_files_path = "/home/pi/3d_models/"
+
+
 @app.get("/items/{item_id}")
 def read_item(item_id: int, q: Union[str, None] = None):
     return {"item_id": item_id, "q": q}
 
-@app.post("/uploadfiles/")
+@app.post("/uploadfiles/", response_class=RedirectResponse)
 async def create_upload_files(
     files: list[UploadFile] = File(description="Multiple files as UploadFile"),
 ):
-    return {"filenames": [file.filename for file in files]}
+    
+    for f in files:
+        async with aiofiles.open(f"{gcode_files_path}{f.filename}", 'wb') as out_file:
+            content = await f.read()  # async read
+            await out_file.write(content)  # async write
+    
+    return "/print"
 
 @app.get("/print", response_class=HTMLResponse)
 async def read_print_page(request: Request):
-    file_list = list(glob.glob("/home/pi/3d_models/*.gcode"))
+    file_list = list(glob.glob(f"{gcode_files_path}*.gcode"))
     file_list = [os.path.basename(fn) for fn in file_list]
     return templates.TemplateResponse("print.html", {"request": request, "files": file_list})
 

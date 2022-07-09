@@ -12,11 +12,11 @@ async def read_print_page():
     return FileResponse('static/print.html')
 
 @app.get("/config")
-async def read_print_page():
+async def read_config_page():
     return FileResponse('static/config.html')
 
 @app.get("/change_fillament")
-async def read_print_page():
+async def read_change_fillament_page():
     return FileResponse('static/change_fillament.html')
 
 @app.get("/items/{item_id}")

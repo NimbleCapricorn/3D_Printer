@@ -21,15 +21,15 @@ async def create_upload_files(
     return {"filenames": [file.filename for file in files]}
 
 @app.get("/print", response_class=HTMLResponse)
-async def read_print_page():
-    return templates.TemplateResponse("print.html", {})
+async def read_print_page(request: Request):
+    return templates.TemplateResponse("print.html", {"request": request})
 
 @app.get("/config", response_class=HTMLResponse)
-async def read_config_page():
-    return templates.TemplateResponse("config.html", {})
+async def read_config_page(request: Request):
+    return templates.TemplateResponse("config.html", {"request": request})
 
 @app.get("/change_fillament", response_class=HTMLResponse)
-async def read_change_fillament_page():
-    return templates.TemplateResponse("change_fillament.html", {})
+async def read_change_fillament_page(request: Request):
+    return templates.TemplateResponse("change_fillament.html", {"request": request})
 
 app.mount("/", StaticFiles(directory="static", html = True), name="static")

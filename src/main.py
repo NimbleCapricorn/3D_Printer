@@ -29,7 +29,7 @@ def read_item(item_id: int, q: Union[str, None] = None):
 async def create_upload_files(
     files: list[UploadFile] = File(description="Multiple files as UploadFile"),
 ):
-    
+    # TODO: ne legyen internal server error akkor, amikor nincs file kiválasztva
     for f in files:
         with open(f"{gcode_files_path}{f.filename}", 'wb') as out_file:
             content = f.file.read()
@@ -39,7 +39,7 @@ async def create_upload_files(
 
 @app.get("/print", response_class=HTMLResponse)
 async def read_print_page(request: Request):
-    file_list = list(glob.glob(f"{gcode_files_path}*.gcode"))
+    file_list = glob.glob(f"{gcode_files_path}*.gcode")
     file_list = [os.path.basename(fn) for fn in file_list]
     return templates.TemplateResponse("print.html", {"request": request, "files": file_list})
 

@@ -1,2 +1,5 @@
+html { overflow:auto; }
 body { overflow: hidden; }
+html, body { height: 100%; }
 .title_bar { border: 1px #000 solid; text-align: center; }
+.file_list { max-height: 220px; }

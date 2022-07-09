@@ -22,7 +22,7 @@ gcode_files_path = "/home/pi/3d_models/"
 def read_item(item_id: int, q: Union[str, None] = None):
     return {"item_id": item_id, "q": q}
 
-@app.post("/uploadfiles/", response_class=RedirectResponse)
+@app.post("/uploadfiles/")
 async def create_upload_files(
     files: list[UploadFile] = File(description="Multiple files as UploadFile"),
 ):
@@ -32,7 +32,7 @@ async def create_upload_files(
             content = f.file.read()
             out_file.write(content)
     
-    return "/print"
+    return fastapi.responses.RedirectResponse('/print',  status_code=status.HTTP_302_FOUND)
 
 @app.get("/print", response_class=HTMLResponse)
 async def read_print_page(request: Request):

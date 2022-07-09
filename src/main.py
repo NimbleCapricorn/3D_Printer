@@ -28,9 +28,9 @@ async def create_upload_files(
 ):
     
     for f in files:
-        async with aiofiles.open(f"{gcode_files_path}{f.filename}", 'wb') as out_file:
-            content = await f.read()  # async read
-            await out_file.write(content)  # async write
+        with open(f"{gcode_files_path}{f.filename}", 'wb') as out_file:
+            content = f.read()  # async read
+            out_file.write(content)  # async write
     
     return "/print"
 

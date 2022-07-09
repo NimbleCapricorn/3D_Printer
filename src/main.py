@@ -25,6 +25,7 @@ async def create_upload_files(
 @app.get("/print", response_class=HTMLResponse)
 async def read_print_page(request: Request):
     file_list = list(glob.glob("~/3d_models/*.gcode"))
+    print(file_list)
     return templates.TemplateResponse("print.html", {"request": request, "files": file_list})
 
 @app.get("/config", response_class=HTMLResponse)

@@ -1,3 +1,4 @@
+import os
 import glob
 
 from typing import Union
@@ -24,8 +25,8 @@ async def create_upload_files(
 
 @app.get("/print", response_class=HTMLResponse)
 async def read_print_page(request: Request):
-    file_list = list(glob.glob("~/3d_models/*.gcode"))
-    print(file_list)
+    file_list = list(glob.glob("/home/pi/3d_models/*.gcode"))
+    file_list = [os.path.basename(fn) for fn in file_list]
     return templates.TemplateResponse("print.html", {"request": request, "files": file_list})
 
 @app.get("/config", response_class=HTMLResponse)

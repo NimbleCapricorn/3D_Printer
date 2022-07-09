@@ -32,7 +32,7 @@ async def create_upload_files(
             content = f.file.read()
             out_file.write(content)
     
-    return fastapi.responses.RedirectResponse('/print',  status_code=status.HTTP_302_FOUND)
+    return RedirectResponse('/print',  status_code=status.HTTP_302_FOUND)
 
 @app.get("/print", response_class=HTMLResponse)
 async def read_print_page(request: Request):

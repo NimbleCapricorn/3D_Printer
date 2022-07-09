@@ -20,7 +20,7 @@
 				<h3>SD Card</h3>
 				<div class="list-group overflow-auto file_list" id="list-tab" role="tablist">
 {% for f in files %}
-					<a class="list-group-item list-group-item-action" >{{ f }}</a>
+					<a class="file_entry list-group-item list-group-item-action" data-fname="{{ f }}" >{{ f }}</a>
 {% else %}
 					<div class="alert alert-warning" role="alert">No files found</div>
 {% endfor %}
@@ -46,5 +46,13 @@
 			</div>
 		</div>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+		<script>
+		
+		$(".file_entry").click(function () {
+			$(".file_entry").removeClass("active");
+			$(this).addClass("active");
+		});
+		
+		</script>
 	</body>
 </html>

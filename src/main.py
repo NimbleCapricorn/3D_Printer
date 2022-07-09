@@ -2,7 +2,7 @@ from typing import Union
 
 from fastapi.staticfiles import StaticFiles
 from starlette.responses import FileResponse
-from fastapi import FastAPI, File, UploadFile
+from fastapi import FastAPI, File, UploadFile, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 

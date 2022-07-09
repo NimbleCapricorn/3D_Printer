@@ -22,14 +22,14 @@ async def create_upload_files(
 
 @app.get("/print", response_class=HTMLResponse)
 async def read_print_page():
-    return templates.TemplateResponse("print.html")
+    return templates.TemplateResponse("print.html", {})
 
 @app.get("/config", response_class=HTMLResponse)
 async def read_config_page():
-    return templates.TemplateResponse("config.html")
+    return templates.TemplateResponse("config.html", {})
 
 @app.get("/change_fillament", response_class=HTMLResponse)
 async def read_change_fillament_page():
-    return templates.TemplateResponse("change_fillament.html")
+    return templates.TemplateResponse("change_fillament.html", {})
 
 app.mount("/", StaticFiles(directory="static", html = True), name="static")
